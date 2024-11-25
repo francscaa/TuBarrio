@@ -332,6 +332,14 @@ class CollectionsTabContent extends StatelessWidget {
     }
   }
 
+void _openFormulario(BuildContext context, {DocumentSnapshot? usuario}) {
+  showDialog(
+    context: context,
+    builder: (context) => FormularioScreen(usuario: usuario),
+  );
+}
+
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -366,12 +374,7 @@ class CollectionsTabContent extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 // Al hacer clic en el Card, abrir el formulario en modo edición
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        FormularioScreen(usuario: colecciones[index]),
-                  ),
-                );
+                _openFormulario(context, usuario: colecciones[index]);
               },
               child: Card(
                 elevation: 4.0,
@@ -440,6 +443,7 @@ class CollectionsTabContent extends StatelessWidget {
     );
   }
 }
+
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
