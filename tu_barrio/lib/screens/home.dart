@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tu_barrio/components/formularioColection.dart';
-import 'package:tu_barrio/components/formularioGrupos.dart';
+import 'package:tu_barrio/components/formulario_colection.dart';
+import 'package:tu_barrio/components/formulario_grupos.dart';
 import 'package:tu_barrio/screens/detalles_grupos.dart';
 
 class Mantenedor extends StatefulWidget {
@@ -68,6 +68,7 @@ class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }
 
@@ -131,6 +132,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             ? FloatingActionButton(
                 onPressed: () {
                   // Cambia el contenido del diálogo aquí si deseas algo diferente para colecciones
+                  // ignore: no_leading_underscores_for_local_identifiers
                   final TextEditingController _collectionNameController =
                       TextEditingController();
 
@@ -277,22 +279,152 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   }
 }
 
-// Contenido para la pestaña de "Favoritos"
-class FavoritesTabContent extends StatelessWidget {
+class FavoritesTabContent extends StatefulWidget {
   const FavoritesTabContent({super.key});
 
   @override
+  _FavoritesTabContentState createState() => _FavoritesTabContentState();
+}
+
+class _FavoritesTabContentState extends State<FavoritesTabContent> {
+  final List<Map<String, String>> productos = [
+    {
+      'imagenUrl': 'https://via.placeholder.com/150',
+      'nombre': 'Producto 1',
+      'descripcion': 'Descripción del producto 1',
+      'precio': '\$5,790',
+    },
+    {
+      'imagenUrl': 'https://via.placeholder.com/150',
+      'nombre': 'Producto 2',
+      'descripcion': 'Descripción del producto 2',
+      'precio': '\$4,990',
+    },
+    {
+      'imagenUrl': 'https://via.placeholder.com/150',
+      'nombre': 'Producto 3',
+      'descripcion': 'Descripción del producto 3',
+      'precio': '\$7,670',
+    },
+  ];
+
+  List<bool> liked = [false, false, false];
+
+  @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Aquí va el contenido de Favoritos'),
+    final theme = Theme.of(context);
+
+    return GridView.builder(
+      padding: const EdgeInsets.all(8.0),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 8.0,
+        childAspectRatio: 200 / 250, // Ajusta el tamaño de las cards
+      ),
+      itemCount: productos.length,
+      itemBuilder: (context, index) {
+        final producto = productos[index];
+        return Card(
+          elevation: 4.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+             Padding(
+  padding: const EdgeInsets.only(top: 33.0), // Ajusta el espacio hacia arriba o abajo
+  child: SizedBox(
+    height: 90.0, // Controlas el tamaño vertical de la imagen
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(0),
+      child: Image.network(
+        producto['imagenUrl'] ?? 'https://via.placeholder.com/150',
+        fit: BoxFit.cover,
+        width: double.infinity,
+      ),
+    ),
+  ),
+),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          producto['nombre'] ?? 'Producto',
+                          style: const TextStyle(
+                            fontFamily: 'Poppins-Medium',
+                            fontSize: 14,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          producto['descripcion'] ?? 'Descripción del producto',
+                          style: const TextStyle(
+                            fontFamily: 'Poppins-Regular',
+                            fontSize: 12,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          producto['precio'] ?? '\$0',
+                          style: const TextStyle(
+                            fontFamily: 'Poppins-Bold',
+                            fontSize: 12,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              // Ícono de menú (tres puntos)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Icon(
+                  Icons.more_vert,
+                  color: Colors.black54,
+                ),
+              ),
+              // Botón de Like en la parte inferior derecha
+              Positioned(
+                bottom: 40,
+                right: 1,
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      liked[index] = !liked[index];
+                    });
+                  },
+                  icon: Icon(
+                    liked[index] ? Icons.favorite : Icons.favorite_border,
+                    color: liked[index] ? theme.primaryColor : Colors.grey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
+
+
 
 // Contenido para la pestaña de "Colecciones"
 class CollectionsTabContent extends StatelessWidget {
   const CollectionsTabContent({super.key});
 
+  // ignore: unused_element
   Future<void> _deleteCollection(BuildContext context, String id) async {
     final confirm = await showDialog(
       context: context,
@@ -332,13 +464,12 @@ class CollectionsTabContent extends StatelessWidget {
     }
   }
 
-void _openFormulario(BuildContext context, {DocumentSnapshot? usuario}) {
-  showDialog(
-    context: context,
-    builder: (context) => FormularioScreen(usuario: usuario),
-  );
-}
-
+  void _openFormulario(BuildContext context, {DocumentSnapshot? usuario}) {
+    showDialog(
+      context: context,
+      builder: (context) => FormularioScreen(usuario: usuario),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -444,7 +575,6 @@ void _openFormulario(BuildContext context, {DocumentSnapshot? usuario}) {
   }
 }
 
-
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
 
@@ -539,7 +669,7 @@ class CommunitiesScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => FormularioGrupos(),
+                      builder: (context) => const FormularioGrupos(),
                     ),
                   );
                 },
@@ -580,7 +710,7 @@ class CommunitiesScreen extends StatelessWidget {
                 }
 
                 final grupos = snapshot.data!.docs;
-                
+
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: grupos.length,
