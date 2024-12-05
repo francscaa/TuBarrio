@@ -7,6 +7,7 @@ class FormularioScreen extends StatefulWidget {
   const FormularioScreen({super.key, this.usuario});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FormularioScreenState createState() => _FormularioScreenState();
 }
 
@@ -37,6 +38,7 @@ class _FormularioScreenState extends State<FormularioScreen> {
         if (widget.usuario == null) {
           // Crear un nuevo documento
           await FirebaseFirestore.instance.collection('Coleccion').add(usuarioData);
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Colección creada exitosamente')),
           );
@@ -46,12 +48,15 @@ class _FormularioScreenState extends State<FormularioScreen> {
               .collection('Coleccion')
               .doc(widget.usuario!.id)
               .update(usuarioData);
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Colección actualizada correctamente')),
           );
         }
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop(); // Cerrar diálogo
       } catch (e) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${e.toString()}')),
         );
@@ -87,11 +92,14 @@ class _FormularioScreenState extends State<FormularioScreen> {
             .collection('Coleccion')
             .doc(widget.usuario!.id)
             .delete();
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Colección eliminada exitosamente')),
         );
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop(); // Cerrar diálogo tras eliminar
       } catch (e) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${e.toString()}')),
         );

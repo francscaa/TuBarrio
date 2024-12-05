@@ -162,6 +162,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   ),
                                   const SizedBox(height: 16),
                                   TextField(
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins-Regular',
+                                    ),
                                     controller: _collectionNameController,
                                     decoration: const InputDecoration(
                                       labelText: 'Nombre de la colección',
@@ -231,9 +234,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                           });
 
                                           // Cierra el diálogo
+                                          // ignore: use_build_context_synchronously
                                           Navigator.of(context).pop();
 
                                           // Muestra un mensaje de éxito
+                                          // ignore: use_build_context_synchronously
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(
@@ -243,6 +248,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                           );
                                         } catch (e) {
                                           // Manejo de errores
+                                          // ignore: use_build_context_synchronously
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
@@ -283,6 +289,7 @@ class FavoritesTabContent extends StatefulWidget {
   const FavoritesTabContent({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FavoritesTabContentState createState() => _FavoritesTabContentState();
 }
 
@@ -290,134 +297,161 @@ class _FavoritesTabContentState extends State<FavoritesTabContent> {
   final List<Map<String, String>> productos = [
     {
       'imagenUrl': 'https://via.placeholder.com/150',
-      'nombre': 'Producto 1',
-      'descripcion': 'Descripción del producto 1',
-      'precio': '\$5,790',
+      'nombre': 'Impresión 3D',
+      'descripcion': 'Descripción del producto ',
+      'precio': '\$5.790',
     },
     {
       'imagenUrl': 'https://via.placeholder.com/150',
-      'nombre': 'Producto 2',
-      'descripcion': 'Descripción del producto 2',
-      'precio': '\$4,990',
+      'nombre': 'Hama Beads',
+      'descripcion': 'Descripción del producto',
+      'precio': '\$4.990',
     },
     {
       'imagenUrl': 'https://via.placeholder.com/150',
-      'nombre': 'Producto 3',
-      'descripcion': 'Descripción del producto 3',
-      'precio': '\$7,670',
+      'nombre': 'Medias Tejidas',
+      'descripcion': 'Descripción del producto',
+      'precio': '\$00',
+    },
+    {
+      'imagenUrl': 'https://via.placeholder.com/150',
+      'nombre': 'Labial',
+      'descripcion': 'Descripción del producto',
+      'precio': '\$7.670',
+    },
+    {
+      'imagenUrl': 'https://via.placeholder.com/150',
+      'nombre': 'Funko Pop',
+      'descripcion': 'Descripción del producto ',
+      'precio': '\$14.990',
+    },
+    {
+      'imagenUrl': 'https://via.placeholder.com/150',
+      'nombre': 'Lámpara',
+      'descripcion': 'Descripción del producto ',
+      'precio': '\$57,990',
     },
   ];
 
-  List<bool> liked = [false, false, false];
+  List<bool> liked = [false, false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return GridView.builder(
-      padding: const EdgeInsets.all(8.0),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 8.0,
-        mainAxisSpacing: 8.0,
-        childAspectRatio: 200 / 250, // Ajusta el tamaño de las cards
-      ),
-      itemCount: productos.length,
-      itemBuilder: (context, index) {
-        final producto = productos[index];
-        return Card(
-          elevation: 4.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0),
-          ),
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-             Padding(
-  padding: const EdgeInsets.only(top: 33.0), // Ajusta el espacio hacia arriba o abajo
-  child: SizedBox(
-    height: 90.0, // Controlas el tamaño vertical de la imagen
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(0),
-      child: Image.network(
-        producto['imagenUrl'] ?? 'https://via.placeholder.com/150',
-        fit: BoxFit.cover,
-        width: double.infinity,
-      ),
-    ),
-  ),
-),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-                    child: Column(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: (productos.length / 2).ceil() * 250.0, // Ajusta la altura según los elementos
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 200 / 250,
+            ),
+            itemCount: productos.length,
+            itemBuilder: (context, index) {
+              final producto = productos[index];
+              return Card(
+                elevation: 4.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                child: Stack(
+                  children: [
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          producto['nombre'] ?? 'Producto',
-                          style: const TextStyle(
-                            fontFamily: 'Poppins-Medium',
-                            fontSize: 14,
-                            color: Colors.black87,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 33.0),
+                          child: SizedBox(
+                            height: 90.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(0),
+                              child: Image.network(
+                                producto['imagenUrl'] ??
+                                    'https://via.placeholder.com/150',
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 3),
-                        Text(
-                          producto['descripcion'] ?? 'Descripción del producto',
-                          style: const TextStyle(
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 12,
-                            color: Colors.black54,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          producto['precio'] ?? '\$0',
-                          style: const TextStyle(
-                            fontFamily: 'Poppins-Bold',
-                            fontSize: 12,
-                            color: Colors.black87,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4.0, vertical: 4.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                producto['nombre'] ?? 'Producto',
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins-Medium',
+                                  fontSize: 14,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                producto['descripcion'] ??
+                                    'Descripción del producto',
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins-Regular',
+                                  fontSize: 10,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                producto['precio'] ?? '\$0',
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins-Bold',
+                                  fontSize: 12,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              // Ícono de menú (tres puntos)
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Icon(
-                  Icons.more_vert,
-                  color: Colors.black54,
+                    const Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Icon(
+                        Icons.more_vert,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 40,
+                      right: 1,
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            liked[index] = !liked[index];
+                          });
+                        },
+                        icon: Icon(
+                          liked[index] ? Icons.favorite : Icons.favorite_border,
+                          color: liked[index] ? theme.primaryColor : Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              // Botón de Like en la parte inferior derecha
-              Positioned(
-                bottom: 40,
-                right: 1,
-                child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      liked[index] = !liked[index];
-                    });
-                  },
-                  icon: Icon(
-                    liked[index] ? Icons.favorite : Icons.favorite_border,
-                    color: liked[index] ? theme.primaryColor : Colors.grey,
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
-
 
 
 // Contenido para la pestaña de "Colecciones"
@@ -453,10 +487,12 @@ class CollectionsTabContent extends StatelessWidget {
             .collection('Coleccion')
             .doc(id)
             .delete();
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Colección eliminada exitosamente')),
         );
       } catch (e) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error al eliminar la colección: $e')),
         );
@@ -716,6 +752,7 @@ class CommunitiesScreen extends StatelessWidget {
                   itemCount: grupos.length,
                   itemBuilder: (context, index) {
                     final grupo = grupos[index];
+                    // ignore: unused_local_variable
                     final idGrupo = grupo.id;
                     final nombre = grupo['nombre'];
                     return Padding(

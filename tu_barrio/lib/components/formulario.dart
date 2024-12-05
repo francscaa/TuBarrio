@@ -47,6 +47,7 @@ class FormularioScreenState extends State<FormularioScreen> {
           await FirebaseFirestore.instance.collection('usuarios').add(usuarioData);
 
           // Mostrar un SnackBar de confirmación de creación
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Usuario creado correctamente')),
           );
@@ -58,13 +59,16 @@ class FormularioScreenState extends State<FormularioScreen> {
               .update(usuarioData);
 
           // Mostrar un SnackBar de confirmación de edición
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Usuario editado correctamente')),
           );
         }
 
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop(); // Cerramos el formulario
       } catch (e) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Error al guardar el usuario')),
         );

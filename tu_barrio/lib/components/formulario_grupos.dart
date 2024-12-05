@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FormularioGrupos extends StatefulWidget {
+  // ignore: use_super_parameters
   const FormularioGrupos({Key? key}) : super(key: key);
 
   @override
