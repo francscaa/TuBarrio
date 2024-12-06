@@ -158,6 +158,19 @@ class _DetalleGruposScreenState extends State<DetalleGruposScreen> {
           );
         }
 
+        //Verificar si el documento existe
+        if (!snapshot.data!.exists) {
+          return const Scaffold(
+            body: Center(
+              child: Text(
+                'Este grupo ya no existe.',
+                style: TextStyle(
+                  fontFamily: 'Poppins-Regular'),
+              ),
+            ),
+          );
+        }
+
         final grupoActualizado = snapshot.data!;
         final nombreGrupo = grupoActualizado['nombre'];
 

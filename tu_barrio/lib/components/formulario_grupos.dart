@@ -24,7 +24,12 @@ class _FormularioGruposState extends State<FormularioGrupos> {
         if (mounted) {
           // Verifica si el widget sigue montado
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Grupo creado exitosamente')),
+            const SnackBar(
+              content: Text(
+                'Grupo creado exitosamente',
+                style: TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
+            ),
           );
 
           Navigator.of(context)
@@ -34,7 +39,12 @@ class _FormularioGruposState extends State<FormularioGrupos> {
         if (mounted) {
           // Verifica si el widget sigue montado
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error al crear el grupo: $e')),
+            SnackBar(
+              content: Text(
+                'Error al crear el grupo: $e',
+                style: const TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
+            ),
           );
         }
       }

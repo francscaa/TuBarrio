@@ -215,7 +215,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                               .showSnackBar(
                                             const SnackBar(
                                               content: Text(
-                                                  'El nombre de la colección no puede estar vacío'),
+                                                'El nombre de la colección no puede estar vacío',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'Poppins-Regular'),
+                                              ),
                                             ),
                                           );
                                           return;
@@ -243,7 +247,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                               .showSnackBar(
                                             const SnackBar(
                                               content: Text(
-                                                  '¡Colección creada exitosamente!'),
+                                                '¡Colección creada exitosamente!',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'Poppins-Regular'),
+                                              ),
                                             ),
                                           );
                                         } catch (e) {
@@ -253,7 +261,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                  'Error al crear la colección: $e'),
+                                                'Error al crear la colección: $e',
+                                                style: const TextStyle(
+                                                    fontFamily:
+                                                        'Poppins-Regular'),
+                                              ),
                                             ),
                                           );
                                         }
@@ -265,7 +277,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                               BorderRadius.circular(8.0),
                                         ),
                                       ),
-                                      child: const Text('Crear'),
+                                      child: const Text(
+                                        'Crear',
+                                        style: TextStyle(
+                                            fontFamily: 'Poppins-Regular'),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -343,7 +359,8 @@ class _FavoritesTabContentState extends State<FavoritesTabContent> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: (productos.length / 2).ceil() * 250.0, // Ajusta la altura según los elementos
+          height: (productos.length / 2).ceil() *
+              250.0, // Ajusta la altura según los elementos
           child: GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -438,7 +455,8 @@ class _FavoritesTabContentState extends State<FavoritesTabContent> {
                         },
                         icon: Icon(
                           liked[index] ? Icons.favorite : Icons.favorite_border,
-                          color: liked[index] ? theme.primaryColor : Colors.grey,
+                          color:
+                              liked[index] ? theme.primaryColor : Colors.grey,
                         ),
                       ),
                     ),
@@ -453,7 +471,6 @@ class _FavoritesTabContentState extends State<FavoritesTabContent> {
   }
 }
 
-
 // Contenido para la pestaña de "Colecciones"
 class CollectionsTabContent extends StatelessWidget {
   const CollectionsTabContent({super.key});
@@ -464,17 +481,28 @@ class CollectionsTabContent extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Eliminar colección'),
+          title: const Text(
+            'Eliminar colección',
+            style: TextStyle(fontFamily: 'Poppins-Regular'),
+          ),
           content: const Text(
-              '¿Estás seguro de que deseas eliminar esta colección?'),
+            '¿Estás seguro de que deseas eliminar esta colección?',
+            style: TextStyle(fontFamily: 'Poppins-Regular'),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancelar'),
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Eliminar'),
+              child: const Text(
+                'Eliminar',
+                style: TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
             ),
           ],
         );
@@ -489,12 +517,20 @@ class CollectionsTabContent extends StatelessWidget {
             .delete();
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Colección eliminada exitosamente')),
+          const SnackBar(
+              content: Text(
+            'Colección eliminada exitosamente',
+            style: TextStyle(fontFamily: 'Poppins-Regular'),
+          )),
         );
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al eliminar la colección: $e')),
+          SnackBar(
+              content: Text(
+            'Error al eliminar la colección: $e',
+            style: const TextStyle(fontFamily: 'Poppins-Regular'),
+          )),
         );
       }
     }
@@ -517,11 +553,20 @@ class CollectionsTabContent extends StatelessWidget {
         }
 
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(
+              child: Text(
+            'Error: ${snapshot.error}',
+            style: const TextStyle(fontFamily: 'Poppins-Regular'),
+          ));
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No hay colecciones disponibles.'));
+          return const Center(
+            child: Text(
+              'No hay colecciones disponibles.',
+              style: TextStyle(fontFamily: 'Poppins-Regular'),
+            ),
+          );
         }
 
         final colecciones = snapshot.data!.docs;
@@ -586,13 +631,14 @@ class CollectionsTabContent extends StatelessWidget {
                             coleccion['Coleccion'] ?? 'Sin nombre',
                             style: const TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins-Regular',
                               fontSize: 14,
                             ),
                           ),
                           const Text(
                             '5 elementos',
                             style: TextStyle(
+                              fontFamily: 'Poppins-Regular',
                               color: Colors.white70,
                               fontSize: 12,
                             ),
@@ -617,7 +663,10 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Pantalla de Explorar'),
+      child: Text(
+        'Pantalla de Explorar',
+        style: TextStyle(fontFamily: 'Poppins-Regular'),
+      ),
     );
   }
 }
@@ -731,7 +780,12 @@ class CommunitiesScreen extends StatelessWidget {
                 }
 
                 if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return Center(
+                    child: Text(
+                      'Error: ${snapshot.error}',
+                      style: const TextStyle(fontFamily: 'Poppins-Regular'),
+                    ),
+                  );
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -805,7 +859,7 @@ class CommunitiesScreen extends StatelessWidget {
     return const Center(
       child: Text(
         'Contenido de Emprendimiento',
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontFamily: 'Poppins-Regular', fontSize: 16),
       ),
     );
   }
@@ -941,7 +995,10 @@ class MessagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Pantalla de Mensajes'),
+      child: Text(
+        'Pantalla de Mensajes',
+        style: TextStyle(fontFamily: 'Poppins-Regular'),
+      ),
     );
   }
 }
@@ -952,7 +1009,10 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Pantalla de Perfil'),
+      child: Text(
+        'Pantalla de Perfil',
+        style: TextStyle(fontFamily: 'Poppins-Regular'),
+      ),
     );
   }
 }

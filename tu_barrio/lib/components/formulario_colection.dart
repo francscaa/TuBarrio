@@ -37,10 +37,17 @@ class _FormularioScreenState extends State<FormularioScreen> {
       try {
         if (widget.usuario == null) {
           // Crear un nuevo documento
-          await FirebaseFirestore.instance.collection('Coleccion').add(usuarioData);
+          await FirebaseFirestore.instance
+              .collection('Coleccion')
+              .add(usuarioData);
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Colección creada exitosamente')),
+            const SnackBar(
+              content: Text(
+                'Colección creada exitosamente',
+                style: TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
+            ),
           );
         } else {
           // Actualizar un documento existente
@@ -50,7 +57,12 @@ class _FormularioScreenState extends State<FormularioScreen> {
               .update(usuarioData);
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Colección actualizada correctamente')),
+            const SnackBar(
+              content: Text(
+                'Colección actualizada correctamente',
+                style: TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
+            ),
           );
         }
         // ignore: use_build_context_synchronously
@@ -58,7 +70,12 @@ class _FormularioScreenState extends State<FormularioScreen> {
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
+          SnackBar(
+            content: Text(
+              'Error: ${e.toString()}',
+              style: const TextStyle(fontFamily: 'Poppins-Regular'),
+            ),
+          ),
         );
       }
     }
@@ -69,17 +86,28 @@ class _FormularioScreenState extends State<FormularioScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Eliminar colección'),
+          title: const Text(
+            'Eliminar colección',
+            style: TextStyle(fontFamily: 'Poppins-Regular'),
+          ),
           content: const Text(
-              '¿Estás seguro de que deseas eliminar esta colección? Esta acción no se puede deshacer.'),
+            '¿Estás seguro de que deseas eliminar esta colección? Esta acción no se puede deshacer.',
+            style: TextStyle(fontFamily: 'Poppins-Regular'),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancelar'),
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Eliminar'),
+              child: const Text(
+                'Eliminar',
+                style: TextStyle(fontFamily: 'Poppins-Regular'),
+              ),
             ),
           ],
         );
@@ -94,14 +122,24 @@ class _FormularioScreenState extends State<FormularioScreen> {
             .delete();
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Colección eliminada exitosamente')),
+          const SnackBar(
+            content: Text(
+              'Colección eliminada exitosamente',
+              style: TextStyle(fontFamily: 'Poppins-Regular'),
+            ),
+          ),
         );
         // ignore: use_build_context_synchronously
         Navigator.of(context).pop(); // Cerrar diálogo tras eliminar
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
+          SnackBar(
+            content: Text(
+              'Error: ${e.toString()}',
+              style: const TextStyle(fontFamily: 'Poppins-Regular'),
+            ),
+          ),
         );
       }
     }
@@ -126,7 +164,8 @@ class _FormularioScreenState extends State<FormularioScreen> {
                 children: [
                   TextFormField(
                     controller: _nombreController,
-                    decoration: const InputDecoration(labelText: 'Nombre Colección'),
+                    decoration:
+                        const InputDecoration(labelText: 'Nombre Colección'),
                     validator: (value) => value == null || value.isEmpty
                         ? 'Por favor ingrese un nombre'
                         : null,
@@ -138,12 +177,17 @@ class _FormularioScreenState extends State<FormularioScreen> {
                       if (widget.usuario != null)
                         ElevatedButton(
                           onPressed: _deleteCollection,
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                          child: const Text('Eliminar'),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red),
+                          child: const Text(
+                            'Eliminar',
+                            style: TextStyle(fontFamily: 'Poppins-Regular'),
+                          ),
                         ),
                       ElevatedButton(
                         onPressed: _saveUser,
-                        child: Text(widget.usuario == null ? 'Agregar' : 'Actualizar'),
+                        child: Text(
+                            widget.usuario == null ? 'Agregar' : 'Actualizar'),
                       ),
                     ],
                   ),
